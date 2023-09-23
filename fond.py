@@ -24,6 +24,9 @@ def get_fond(db, fond_id):
         if not fond:
             raise FondNotFoundError(f"Fond id {fond_id} not found")
         return fond[0]
+
+def get_fonds(db):
+     return FONDS
     
 def post_fond(db, fond):
     global LAST_FOND_ID
@@ -51,3 +54,4 @@ def put_fond(db, fond_id, new_fond):
     FONDS.remove(old_fond)
     FONDS.append(fond)
     return fond
+

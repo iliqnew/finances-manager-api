@@ -7,6 +7,7 @@ from flask import (
 from db import DB
 from fond import (
     get_fond,
+    get_fonds,
     post_fond,
     put_fond
 )
@@ -74,6 +75,11 @@ def transaction():
         transaction = put_transaction(DATABASE, transaction_id, data)
         return jsonify(transaction), 200
 
+
+@app.route("/fonds", methods=["GET"])
+def fonds():
+    if request.method == "GET":
+        return jsonify(get_fonds(DATABASE)), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
