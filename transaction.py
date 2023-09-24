@@ -6,13 +6,15 @@ TRANSACTIONS = [
         "id": 0,
         "source_fond_id": 0,
         "source_fond": "Groceries",
+        "source_fond_payment_method_id": 0,
         "target_fond_id": None,
         "target_fond": None,
+        "source_fond_payment_method_id": 0,
         "amount": 100,
         "comment": "test",
 
-        "created_at": "2023-09-23 01:54:32",
-        "updated_at": "2023-09-23 01:54:32"
+        "created_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S")
     }
 ]
 
@@ -26,14 +28,17 @@ class TransactionNotFoundError(Exception):
 
 
 def get_transaction(db, transaction_id):
-        transaction = list(filter(lambda x: x["id"] == transaction_id, TRANSACTIONS))
-        if not transaction:
-            raise TransactionNotFoundError(f"transaction id {transaction_id} not found")
-        return transaction[0]
-    
+    transaction = list(filter(lambda x: x["id"] == transaction_id, TRANSACTIONS))
+    if not transaction:
+        raise TransactionNotFoundError(f"transaction id {transaction_id} not found")
+    return transaction[0]
+
+def get_transactions(db):
+    return TRANSACTIONS
+
 def post_transaction(db, transaction):
     global LAST_TRANSACTION_ID
-    creation_timestamp = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+    creation_timestamp = datetime.now()
     transaction.update(
         {
             "id": (LAST_TRANSACTION_ID := LAST_TRANSACTION_ID + 1),
@@ -51,7 +56,7 @@ def put_transaction(db, transaction_id, new_transaction):
     transaction.update(
         {
             **new_transaction,
-            "updated_at": datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+            "updated_at": datetime.now()
         }
     )
     TRANSACTIONS.remove(old_transaction)

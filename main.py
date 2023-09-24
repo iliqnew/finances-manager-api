@@ -17,6 +17,10 @@ from transaction import (
     put_transaction
 )
 
+from views import (
+    get_expenses
+)
+
 
 app = Flask(__name__)
 
@@ -80,6 +84,13 @@ def transaction():
 def fonds():
     if request.method == "GET":
         return jsonify(get_fonds(DATABASE)), 200
+
+
+@app.route("/balance", methods=["GET"])
+def balance():
+    if request.method == "GET":
+        return jsonify(get_expenses(DATABASE)), 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)

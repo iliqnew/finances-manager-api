@@ -5,8 +5,8 @@ FONDS = [
     {
         "id": 0,
         "name": "Groceries",
-        "created_at": "2023-09-24 09:10:11",
-        "updated_at": "2023-12-17 12:13:14"
+        "created_at": datetime.strptime("2023-09-24 09:10:11", "%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.strptime("2023-12-17 12:13:14", "%Y-%m-%d %H:%M:%S")
     }
 ]
 
@@ -30,7 +30,7 @@ def get_fonds(db):
     
 def post_fond(db, fond):
     global LAST_FOND_ID
-    creation_timestamp = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+    creation_timestamp = datetime.now()
     fond.update(
         {
             "id": (LAST_FOND_ID := LAST_FOND_ID + 1),
@@ -48,7 +48,7 @@ def put_fond(db, fond_id, new_fond):
     fond.update(
         {
             **new_fond,
-            "updated_at": datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+            "updated_at": datetime.now()
         }
     )
     FONDS.remove(old_fond)
