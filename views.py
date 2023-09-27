@@ -12,14 +12,6 @@ def get_expenses(db):
     fonds = get_fonds(db)
     transactions = get_transactions(db)
     earliest_year = min(list(transaction["created_at"] for transaction in transactions), default=datetime.now()).year
-    # raw_monthly_data = [
-    #     list(filter(
-    #         lambda x:
-    #             datetime(year, month, 1, 0, 0, 0) <= x["created_at"] < datetime(year, month+1, 1, 0, 0, 0),
-    #         transactions
-    #     )) for month in range(1, 13) for year in range(earliest_year, datetime.now().year + 1)
-    # ]
-    # print(raw_monthly_data)
     data = []
     for fond in fonds:
         fond = {
