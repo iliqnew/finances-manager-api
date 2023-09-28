@@ -2,20 +2,20 @@ from datetime import datetime
 
 
 TRANSACTIONS = [
-    {
-        "id": 0,
-        "source_fond_id": 0,
-        "source_fond": "Groceries",
-        "source_fond_payment_method_id": 0,
-        "target_fond_id": None,
-        "target_fond": None,
-        "source_fond_payment_method_id": 0,
-        "amount": 100,
-        "comment": "test",
+    # {
+    #     "id": 0,
+    #     "source_fond_id": 0,
+    #     "source_fond": "Groceries",
+    #     "source_fond_payment_method_id": 0,
+    #     "target_fond_id": None,
+    #     "target_fond": None,
+    #     "source_fond_payment_method_id": 0,
+    #     "amount": 100,
+    #     "comment": "test",
 
-        "created_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S"),
-        "updated_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S")
-    }
+    #     "created_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S"),
+    #     "updated_at": datetime.strptime("2023-09-23 01:54:32", "%Y-%m-%d %H:%M:%S")
+    # }
 ]
 
 

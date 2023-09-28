@@ -34,6 +34,12 @@ def fond():
     if request.method == "POST":
         data = request.get_json()
         fond = post_fond(DATABASE, data)
+        DB().execute(
+            """
+            INSERT INTO fonds (name) VALUES (?);
+            """,
+            (fond["name"],)
+        )
         return jsonify(fond), 201
     
     fond_id = request.args.get("id")
@@ -46,7 +52,12 @@ def fond():
     fond_id = int(fond_id)
 
     if request.method == "GET":
-        return jsonify(get_fond(DATABASE, fond_id)), 200
+        result = DB().execute(
+            "SELECT * FROM fonds WHERE id = (?)",
+            (fond_id,)
+        )
+        return jsonify(result[0]), 200
+        # return jsonify(get_fond(DATABASE, fond_id)), 200
     
     if request.method == "PUT":
         data = request.get_json()
