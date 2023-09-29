@@ -33,14 +33,8 @@ def fond():
     
     if request.method == "POST":
         data = request.get_json()
-        fond = post_fond(DATABASE, data)
-        DB().execute(
-            """
-            INSERT INTO fonds (name) VALUES (?);
-            """,
-            (fond["name"],)
-        )
-        return jsonify(fond), 201
+        post_fond(data)
+        return jsonify({"response_code": 201}), 201
     
     fond_id = request.args.get("id")
 
@@ -52,17 +46,15 @@ def fond():
     fond_id = int(fond_id)
 
     if request.method == "GET":
-        result = DB().execute(
-            "SELECT * FROM fonds WHERE id = (?)",
-            (fond_id,)
-        )
-        return jsonify(result[0]), 200
+        result = get_fond(fond_id)
+        print(result)
+        return jsonify(result), (404 if "error" in result.keys() else 200)
         # return jsonify(get_fond(DATABASE, fond_id)), 200
     
     if request.method == "PUT":
         data = request.get_json()
-        fond = put_fond(DATABASE, fond_id, data)
-        return jsonify(fond), 200
+        put_fond(fond_id, data)
+        return jsonify({"response_code": 200}), 200
 
 
 @app.route("/transaction", methods=["GET", "POST", "PUT"])
@@ -94,7 +86,7 @@ def transaction():
 @app.route("/fonds", methods=["GET"])
 def fonds():
     if request.method == "GET":
-        return jsonify(get_fonds(DATABASE)), 200
+        return jsonify(get_fonds()), 200
 
 
 @app.route("/balance", methods=["GET"])
